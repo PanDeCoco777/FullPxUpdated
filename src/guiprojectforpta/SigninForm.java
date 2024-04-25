@@ -6,7 +6,9 @@
 package guiprojectforpta;
 
 import config.dcConnector;
+import config.passwordHash;
 import guiprojectforpta.*;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -80,10 +82,12 @@ public class SigninForm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         em = new javax.swing.JTextField();
-        nm = new javax.swing.JTextField();
+        ln = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         ut = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
+        fn = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -121,7 +125,7 @@ public class SigninForm extends javax.swing.JFrame {
         });
 
         jLabel4.setBackground(new java.awt.Color(41, 41, 41));
-        jLabel4.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Sitka Small", 3, 10)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(15, 150, 144));
         jLabel4.setText("Already have an account");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -138,7 +142,7 @@ public class SigninForm extends javax.swing.JFrame {
         jLabel7.setBackground(new java.awt.Color(41, 41, 41));
         jLabel7.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(109, 165, 192));
-        jLabel7.setText("Full Name");
+        jLabel7.setText("Last Name");
 
         ut.setFont(new java.awt.Font("Sitka Banner", 1, 14)); // NOI18N
         ut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", "Admin" }));
@@ -147,6 +151,11 @@ public class SigninForm extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(109, 165, 192));
         jLabel8.setText("User Type");
+
+        jLabel6.setBackground(new java.awt.Color(41, 41, 41));
+        jLabel6.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(109, 165, 192));
+        jLabel6.setText("Name");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -158,7 +167,7 @@ public class SigninForm extends javax.swing.JFrame {
                         .addGap(29, 29, 29)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(nm, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(ln, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(em, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)
@@ -168,28 +177,35 @@ public class SigninForm extends javax.swing.JFrame {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jButton1))
                             .addComponent(ut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6)
+                            .addComponent(fn, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(86, 86, 86)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
-                        .addComponent(jLabel4)))
+                        .addGap(89, 89, 89)
+                        .addComponent(jLabel1)))
                 .addContainerGap(33, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(48, 48, 48))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(jLabel1)
-                .addGap(1, 1, 1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(em, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel6)
+                .addGap(7, 7, 7)
+                .addComponent(fn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(7, 7, 7)
-                .addComponent(nm, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ln, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -202,19 +218,19 @@ public class SigninForm extends javax.swing.JFrame {
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addContainerGap())
+                .addGap(18, 18, 18))
         );
 
         jPanel2.add(jPanel3);
-        jPanel3.setBounds(360, 60, 230, 360);
+        jPanel3.setBounds(360, 30, 230, 410);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Borcelle CAR wash (1) (1).png"))); // NOI18N
         jPanel2.add(jLabel9);
-        jLabel9.setBounds(50, 60, 250, 350);
+        jLabel9.setBounds(50, 90, 250, 320);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -251,7 +267,7 @@ public class SigninForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        
-        if(em.getText().isEmpty()||nm.getText().isEmpty()||us.getText().isEmpty()||pw.getText().isEmpty()){
+        if(em.getText().isEmpty()||ln.getText().isEmpty()||us.getText().isEmpty()||pw.getText().isEmpty()){
                 JOptionPane.showMessageDialog(null, "PLEASE PUT DETAILS!");
                 
             }else if(pw.getText().length()<8){
@@ -260,8 +276,16 @@ public class SigninForm extends javax.swing.JFrame {
             }else if(duplicateCheck()){
                 System.out.println("Duplicate exist");
             }else{
+                
                 dcConnector dbc = new dcConnector();
-                if(dbc.insertData("INSERT INTO  ttb (u_Email, u_Name, u_Username, u_Password, u_type, u_status) VALUES ('"+em.getText()+"', '"+nm.getText()+"', '"+us.getText()+"', '"+pw.getText()+"', '"+ut.getSelectedItem()+"', 'Pending')")){                                        
+            try{    
+                String pass = passwordHash.hashPassword(pw.getText());
+                
+                 if(dbc.insertData("INSERT INTO  ttb (u_Fname, u_Lname, u_Email, u_Username, u_Password, u_type, u_status) VALUES ('"+fn.getText()+"', '"
+                         +ln.getText()+"', '"+em.getText()+"', '"+us.getText()+"', '"+pass+"', '"
+                         +ut.getSelectedItem()+"', 'Pending')")){              
+                     
+                     
                 JOptionPane.showMessageDialog(null, "Inserted Successfully!");
                 LoginForm lf = new LoginForm();
                 lf.setVisible(true);
@@ -269,6 +293,10 @@ public class SigninForm extends javax.swing.JFrame {
             }else{
                     JOptionPane.showMessageDialog(null, "ERROR ");
                 }
+            }catch(NoSuchAlgorithmException ex){
+                System.out.println(""+ex);
+                
+            }
             }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -312,19 +340,21 @@ public class SigninForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField em;
+    private javax.swing.JTextField fn;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField nm;
+    private javax.swing.JTextField ln;
     private javax.swing.JPasswordField pw;
     private javax.swing.JTextField us;
     private javax.swing.JComboBox<String> ut;

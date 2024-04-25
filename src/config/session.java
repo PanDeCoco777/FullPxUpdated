@@ -16,6 +16,7 @@ public class session {
         private int id;
         private String email;
         private String name;
+        private String lname;
         private String username;
         private String type;
         private String status;
@@ -61,6 +62,14 @@ public class session {
         this.name = name;
     }
 
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+    
     public String getUsername() {
         return username;
     }

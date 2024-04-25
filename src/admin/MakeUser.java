@@ -60,36 +60,32 @@ public class MakeUser extends javax.swing.JFrame {
         return true;
         }  
     
-    public boolean UpdateCheck(){
+    public boolean updateCheck(){
         
         dcConnector dcc = new dcConnector();
         try{
-            String query = "SELECT * FROM TTB  WHERE (u_Username = '" + us.getText() + "' OR u_Email = '" + em.getText() + "')AND u_id =! '"+uid.getText()+"'";
-            ResultSet resultSet = dcc.getData(query);
+            String sql = "SELECT * FROM tbb WHERE (u_Username = '"+us.getText()+"'OR u_Email = '"+em.getText()+"')AND u_id!='"+uid.getText()+'"';
+            ResultSet rs = dcc.getData(sql);
             
-            
-            if(resultSet.next()){
-                Email = resultSet.getString("u_Email");
+            if(rs.next()){
+                Email = rs.getString("u_Email");
                 if(Email.equals(em.getText())){
-                    JOptionPane.showMessageDialog(null,"Email already used");
+                    JOptionPane.showMessageDialog(null, "Email is Already Used.");
                     em.setText("");
                 }
-                Username = resultSet.getString("u_Username");
-                 if(Username.equals(us.getText())){
-                    JOptionPane.showMessageDialog(null,"Username already used");
+                Username = rs.getString("u_Username");
+                if(Username.equals(us.getText())){
+                    JOptionPane.showMessageDialog(null, "Username is Already Used.");
                     us.setText("");
                 }
-                return true;
-
+                return false;
             }else{
                 return false;
             }
-            
         }catch(SQLException ex){
             System.out.println(""+ex);
-            
+            return false;
         }
-        return true;
         }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -108,7 +104,7 @@ public class MakeUser extends javax.swing.JFrame {
         pw = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
         em = new javax.swing.JTextField();
-        nm = new javax.swing.JTextField();
+        ln = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         ut = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
@@ -122,6 +118,8 @@ public class MakeUser extends javax.swing.JFrame {
         refresh = new javax.swing.JButton();
         delet = new javax.swing.JButton();
         clear = new javax.swing.JButton();
+        fn = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -150,7 +148,7 @@ public class MakeUser extends javax.swing.JFrame {
         jLabel7.setBackground(new java.awt.Color(41, 41, 41));
         jLabel7.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(109, 165, 192));
-        jLabel7.setText("Full Name");
+        jLabel7.setText("Last Name");
 
         ut.setFont(new java.awt.Font("Sitka Banner", 1, 12)); // NOI18N
         ut.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "User", "Admin" }));
@@ -181,7 +179,7 @@ public class MakeUser extends javax.swing.JFrame {
         jLabel6.setText("Id");
 
         add1.setBackground(new java.awt.Color(7, 46, 51));
-        add1.setFont(new java.awt.Font("Sitka Small", 0, 11)); // NOI18N
+        add1.setFont(new java.awt.Font("Sitka Small", 3, 11)); // NOI18N
         add1.setForeground(new java.awt.Color(109, 165, 192));
         add1.setText("Add");
         add1.addActionListener(new java.awt.event.ActionListener() {
@@ -191,7 +189,7 @@ public class MakeUser extends javax.swing.JFrame {
         });
 
         Update.setBackground(new java.awt.Color(7, 46, 51));
-        Update.setFont(new java.awt.Font("Sitka Small", 0, 11)); // NOI18N
+        Update.setFont(new java.awt.Font("Sitka Small", 3, 11)); // NOI18N
         Update.setForeground(new java.awt.Color(109, 165, 192));
         Update.setText("Update");
         Update.setEnabled(false);
@@ -202,7 +200,7 @@ public class MakeUser extends javax.swing.JFrame {
         });
 
         cancel.setBackground(new java.awt.Color(7, 46, 51));
-        cancel.setFont(new java.awt.Font("Sitka Small", 0, 11)); // NOI18N
+        cancel.setFont(new java.awt.Font("Sitka Small", 3, 11)); // NOI18N
         cancel.setForeground(new java.awt.Color(109, 165, 192));
         cancel.setText("Cancel");
         cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -212,7 +210,7 @@ public class MakeUser extends javax.swing.JFrame {
         });
 
         refresh.setBackground(new java.awt.Color(7, 46, 51));
-        refresh.setFont(new java.awt.Font("Sitka Small", 0, 11)); // NOI18N
+        refresh.setFont(new java.awt.Font("Sitka Small", 3, 11)); // NOI18N
         refresh.setForeground(new java.awt.Color(109, 165, 192));
         refresh.setText("Refresh");
         refresh.addActionListener(new java.awt.event.ActionListener() {
@@ -222,7 +220,7 @@ public class MakeUser extends javax.swing.JFrame {
         });
 
         delet.setBackground(new java.awt.Color(7, 46, 51));
-        delet.setFont(new java.awt.Font("Sitka Small", 0, 11)); // NOI18N
+        delet.setFont(new java.awt.Font("Sitka Small", 3, 11)); // NOI18N
         delet.setForeground(new java.awt.Color(109, 165, 192));
         delet.setText("Delet");
         delet.addActionListener(new java.awt.event.ActionListener() {
@@ -232,7 +230,7 @@ public class MakeUser extends javax.swing.JFrame {
         });
 
         clear.setBackground(new java.awt.Color(7, 46, 51));
-        clear.setFont(new java.awt.Font("Sitka Small", 0, 11)); // NOI18N
+        clear.setFont(new java.awt.Font("Sitka Small", 3, 11)); // NOI18N
         clear.setForeground(new java.awt.Color(109, 165, 192));
         clear.setText("Clear");
         clear.addActionListener(new java.awt.event.ActionListener() {
@@ -241,6 +239,11 @@ public class MakeUser extends javax.swing.JFrame {
             }
         });
 
+        jLabel11.setBackground(new java.awt.Color(41, 41, 41));
+        jLabel11.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(109, 165, 192));
+        jLabel11.setText("Name");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -248,6 +251,8 @@ public class MakeUser extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel11)
+                    .addComponent(fn, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel3Layout.createSequentialGroup()
                             .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -259,7 +264,7 @@ public class MakeUser extends javax.swing.JFrame {
                             .addComponent(Update, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
-                    .addComponent(nm, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ln, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(em, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
@@ -297,7 +302,7 @@ public class MakeUser extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(refresh)
                     .addComponent(cancel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(uid, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -306,9 +311,13 @@ public class MakeUser extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(em, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel11)
+                .addGap(7, 7, 7)
+                .addComponent(fn, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(7, 7, 7)
-                .addComponent(nm, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ln, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -329,7 +338,7 @@ public class MakeUser extends javax.swing.JFrame {
         );
 
         jPanel2.add(jPanel3);
-        jPanel3.setBounds(60, 30, 230, 420);
+        jPanel3.setBounds(60, 10, 230, 460);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/Borcelle CAR wash (1) (1).png"))); // NOI18N
         jPanel2.add(jLabel9);
@@ -352,43 +361,70 @@ public class MakeUser extends javax.swing.JFrame {
 
     private void add1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_add1ActionPerformed
 
-        if(em.getText().isEmpty()||nm.getText().isEmpty()||us.getText().isEmpty()||pw.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "PLEASE PUT DETAILS!");
-
-        }else if(pw.getText().length()<8){
-            JOptionPane.showMessageDialog(null,"Password character should be 8 above");
-            pw.setText("");
-        }else if(duplicateCheck()){
-            System.out.println("Duplicate exist");
-        }else{
-            dcConnector dbc = new dcConnector();
-            if(dbc.insertData("INSERT INTO TTB (u_Email, u_Name, u_Username, u_Password, u_type, u_status) VALUES ('"+em.getText()+"', '"+nm.getText()+"', '"+us.getText()+"', '"+pw.getText()+"', '"+ut.getSelectedItem()+"','"+ut1.getSelectedItem()+"')")){
-                JOptionPane.showMessageDialog(null, "Registration Success!");
-                UserForm ud = new UserForm();
-                ud.setVisible(true);
+      /*if(em.getText().isEmpty()||ln.getText().isEmpty()||us.getText().isEmpty()||pw.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "PLEASE PUT DETAILS!");
+                
+            }else if(pw.getText().length()<8){
+                JOptionPane.showMessageDialog(null,"Password character should be 8 above");
+                pw.setText("");
+            }else if(duplicateCheck()){
+                System.out.println("Duplicate exist");
+            }else{
+                dcConnector dbc = new dcConnector();
+                 if(dbc.insertData("INSERT INTO  ttb (u_Fname, u_Lname, u_Email, u_Username, u_Password, u_type, u_status) VALUES ('"+fn.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+us.getText()+"', '"+pw.getText()+"', '"+ut.getSelectedItem()+"', 'Pending')")){                                        
+                JOptionPane.showMessageDialog(null, "Inserted Successfully!");
+                LoginForm lf = new LoginForm();
+                lf.setVisible(true);
                 this.dispose();
             }else{
-                JOptionPane.showMessageDialog(null, "NO INTERNET ");
+                    JOptionPane.showMessageDialog(null, "ERROR ");*/
+                
+            if(ln.getText().isEmpty() || em.getText().isEmpty() || us.getText().isEmpty() || pw.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please fill in all required Data.");
+        }else if (pw.getText().length() < 8) {
+            JOptionPane.showMessageDialog(null, "Password should have at least 8 characters or Above.");
+            pw.setText("");
+        }else if(duplicateCheck()){    
+            System.out.println("Duplicated Exist");
+        }else{
+            dcConnector dbc = new dcConnector();
+
+            if(dbc.insertData("INSERT INTO ttb (u_Fname, u_Lname, u_Email, u_Username, u_Password, u_type, u_status)"
+                    +" VALUES ('"+uid.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+us.getText()+"', '"
+                    +pw.getText()+"', '"+ut.getSelectedItem()+"', '"+ut1.getSelectedItem()+ "')")){                                        
+                JOptionPane.showMessageDialog(null, "Inserted Successfully!");
+                LoginForm lf = new LoginForm();
+                lf.setVisible(true);
+                this.dispose();
+            }else{
+                JOptionPane.showMessageDialog(null, "Connection Error!");
             }
         }
     }//GEN-LAST:event_add1ActionPerformed
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
-       if(em.getText().isEmpty()||nm.getText().isEmpty()||us.getText().isEmpty()||pw.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "PLEASE PUT DETAILS!");
-
-        }else if(pw.getText().length()<8){
-            JOptionPane.showMessageDialog(null,"Password character should be 8 above");
+    
+           if(em.getText().isEmpty() || fn.getText().isEmpty() || ln.getText().isEmpty() 
+            || us.getText().isEmpty() || pw.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Please fill in all required Data.");
+        }else if (pw.getText().length() < 8) {
+            JOptionPane.showMessageDialog(null, "Password should have at least 8 characters or Above.");
             pw.setText("");
-        }else if(UpdateCheck()){
-            System.out.println("Duplicate exist");
+        }else if(updateCheck()){    
+            System.out.println("Duplicated Exist");
         }else{
-           
-            dcConnector dcc = new dcConnector();
-            dcc.updateData("UPDATE TTB SET u_Name = '"+nm.getText()+"',u_Email ='"+em.getText()+"',u_Username = '"+us.getText()+"',u_Password = '"+pw.getText()+"',u_tpe = '"+ut.getSelectedItem()+"',u_status = '"+ut1.getSelectedItem()+"',");
-            
-            
-        }   
+            dcConnector dbc =new dcConnector();
+            dbc.updateData("UPDATE ttb SET "
+            + "u_Fname = '"+fn.getText()+"', u_Lname = '"+ln.getText()+"', "
+                + "u_Email = '"+em.getText()+"', u_Username ='"+us.getText()+ "', "
+                    + "u_Password = '"+pw.getText()+"', "
+                        + "u_type = '"+ut.getSelectedItem()+"', "
+                            + "u_status = '"+ut1.getSelectedItem()+"' "
+                                + "WHERE u_id='"+Integer.valueOf(uid.getText())+"'");
+          UserForm uf = new UserForm();
+          uf.setVisible(true);
+          this.dispose();
+        }
     }//GEN-LAST:event_UpdateActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
@@ -456,7 +492,9 @@ public class MakeUser extends javax.swing.JFrame {
     private javax.swing.JButton clear;
     private javax.swing.JButton delet;
     public javax.swing.JTextField em;
+    public javax.swing.JTextField fn;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
@@ -466,7 +504,7 @@ public class MakeUser extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    public javax.swing.JTextField nm;
+    public javax.swing.JTextField ln;
     public javax.swing.JPasswordField pw;
     private javax.swing.JButton refresh;
     public javax.swing.JTextField uid;

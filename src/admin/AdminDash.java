@@ -41,8 +41,9 @@ public class AdminDash extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         AD_nm = new javax.swing.JLabel();
         AD_em = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        AD_adress = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        AD_ln = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
@@ -66,22 +67,25 @@ public class AdminDash extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/account (1).png"))); // NOI18N
 
         AD_nm.setBackground(new java.awt.Color(204, 204, 204));
-        AD_nm.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
+        AD_nm.setFont(new java.awt.Font("Sitka Small", 1, 12)); // NOI18N
         AD_nm.setForeground(new java.awt.Color(109, 165, 192));
+        AD_nm.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         AD_nm.setText("Name");
 
         AD_em.setBackground(new java.awt.Color(204, 204, 204));
-        AD_em.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
+        AD_em.setFont(new java.awt.Font("Sitka Small", 1, 12)); // NOI18N
         AD_em.setForeground(new java.awt.Color(109, 165, 192));
+        AD_em.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         AD_em.setText("Email");
 
-        jLabel5.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel5.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(109, 165, 192));
-        jLabel5.setText("Address");
+        AD_adress.setBackground(new java.awt.Color(204, 204, 204));
+        AD_adress.setFont(new java.awt.Font("Sitka Small", 1, 12)); // NOI18N
+        AD_adress.setForeground(new java.awt.Color(109, 165, 192));
+        AD_adress.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        AD_adress.setText("Address");
 
         jLabel6.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel6.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Sitka Small", 3, 10)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(41, 77, 97));
         jLabel6.setText("Log Out");
         jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -89,6 +93,12 @@ public class AdminDash extends javax.swing.JFrame {
                 jLabel6MouseClicked(evt);
             }
         });
+
+        AD_ln.setBackground(new java.awt.Color(204, 204, 204));
+        AD_ln.setFont(new java.awt.Font("Sitka Small", 1, 12)); // NOI18N
+        AD_ln.setForeground(new java.awt.Color(109, 165, 192));
+        AD_ln.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        AD_ln.setText("Last Name");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -100,14 +110,15 @@ public class AdminDash extends javax.swing.JFrame {
                         .addGap(38, 38, 38)
                         .addComponent(jLabel6))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addGap(34, 34, 34)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AD_ln)
                             .addComponent(AD_nm)
                             .addComponent(AD_em)
-                            .addComponent(jLabel5)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jLabel1)))
+                            .addComponent(AD_adress))))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -118,10 +129,12 @@ public class AdminDash extends javax.swing.JFrame {
                 .addGap(28, 28, 28)
                 .addComponent(AD_nm)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(AD_ln)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(AD_em)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
+                .addComponent(AD_adress)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 207, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addGap(20, 20, 20))
         );
@@ -290,6 +303,7 @@ public class AdminDash extends javax.swing.JFrame {
         }else{
             
                     AD_nm.setText(""+sess.getName());
+                    AD_ln.setText(""+sess.getLname());
                     AD_em.setText(""+sess.getEmail());
                     
         }
@@ -346,7 +360,9 @@ public class AdminDash extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AD_adress;
     private javax.swing.JLabel AD_em;
+    private javax.swing.JLabel AD_ln;
     private javax.swing.JLabel AD_nm;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -354,7 +370,6 @@ public class AdminDash extends javax.swing.JFrame {
     private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;

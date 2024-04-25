@@ -37,7 +37,7 @@ public class UserForm extends javax.swing.JFrame {
        public void displayData(){
         try{
             dcConnector dbc = new dcConnector();
-            ResultSet rs = dbc.getData("SELECT u_id, u_Email, u_Name, u_Username  FROM  ttb");
+            ResultSet rs = dbc.getData("SELECT u_id, u_Email, u_Fname , u_Lname, u_Username FROM  ttb");
             Tb.setModel(DbUtils.resultSetToTableModel(rs));
              rs.close();
         }catch(SQLException ex){
@@ -59,9 +59,6 @@ public class UserForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         AD_id = new javax.swing.JLabel();
         Add = new javax.swing.JPanel();
@@ -87,21 +84,6 @@ public class UserForm extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(7, 46, 51));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/account (1).png"))); // NOI18N
-
-        jLabel3.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel3.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(109, 165, 192));
-        jLabel3.setText("Name");
-
-        jLabel4.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel4.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(109, 165, 192));
-        jLabel4.setText("Email");
-
-        jLabel5.setBackground(new java.awt.Color(204, 204, 204));
-        jLabel5.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(109, 165, 192));
-        jLabel5.setText("Address");
 
         jLabel8.setBackground(new java.awt.Color(204, 204, 204));
         jLabel8.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
@@ -137,13 +119,13 @@ public class UserForm extends javax.swing.JFrame {
         AddLayout.setHorizontalGroup(
             AddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AddLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(42, 42, 42)
                 .addComponent(jLabel6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         AddLayout.setVerticalGroup(
             AddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel6)
+            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         Edit.setBackground(new java.awt.Color(7, 46, 51));
@@ -169,60 +151,49 @@ public class UserForm extends javax.swing.JFrame {
         EditLayout.setHorizontalGroup(
             EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EditLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
+                .addGap(42, 42, 42)
                 .addComponent(jLabel9)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         EditLayout.setVerticalGroup(
             EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel9)
+            .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(22, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel1))
-                .addGap(29, 29, 29))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(AD_id)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(Add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(Edit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel8)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(22, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(29, 29, 29))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(AD_id)
+                        .addGap(53, 53, 53))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addGap(18, 18, 18)
+                .addGap(87, 87, 87)
                 .addComponent(Add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 159, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
                 .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(AD_id)
-                .addGap(28, 28, 28))
+                .addGap(36, 36, 36))
         );
 
         jPanel1.add(jPanel2);
@@ -356,7 +327,8 @@ public class UserForm extends javax.swing.JFrame {
          if(rs.next()){    
              MakeUser Mu = new MakeUser();
              Mu.uid.setText(""+rs.getInt("u_id"));
-             Mu.nm.setText(""+rs.getString("u_Name"));
+             Mu.fn.setText(""+rs.getString("u_Fname"));
+             Mu.ln.setText(""+rs.getString("u_Lname"));
              Mu.em.setText(""+rs.getString("u_Email"));
              Mu.us.setText(""+rs.getString("u_Username"));
              Mu.pw.setText(""+rs.getString("u_Password"));             
@@ -435,9 +407,6 @@ public class UserForm extends javax.swing.JFrame {
     private javax.swing.JTable Tb;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
