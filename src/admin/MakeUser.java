@@ -7,8 +7,10 @@ package admin;
 
 import User.UserDash;
 import config.dcConnector;
+import config.passwordHash;
 import guiprojectforpta.LoginForm;
 import guiprojectforpta.SigninForm;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -53,8 +55,8 @@ public class MakeUser extends javax.swing.JFrame {
                 return false;
             }
             
-        }catch(SQLException ex){
-            System.out.println(""+ex);
+            }catch(SQLException ex){
+                System.out.println(""+ex);
             
         }
         return true;
@@ -64,7 +66,7 @@ public class MakeUser extends javax.swing.JFrame {
         
         dcConnector dcc = new dcConnector();
         try{
-            String sql = "SELECT * FROM tbb WHERE (u_Username = '"+us.getText()+"'OR u_Email = '"+em.getText()+"')AND u_id!='"+uid.getText()+'"';
+            String sql = "SELECT * FROM ttb WHERE (u_Username = '"+us.getText()+"' OR u_Email = '"+em.getText()+"') AND u_id != '"+uid.getText()+"'";
             ResultSet rs = dcc.getData(sql);
             
             if(rs.next()){
@@ -78,13 +80,13 @@ public class MakeUser extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Username is Already Used.");
                     us.setText("");
                 }
-                return false;
+                return true;
             }else{
                 return false;
             }
         }catch(SQLException ex){
             System.out.println(""+ex);
-            return false;
+            return true;
         }
         }
     /**
@@ -389,9 +391,12 @@ public class MakeUser extends javax.swing.JFrame {
         }else{
             dcConnector dbc = new dcConnector();
 
+            try{    
+            String pass = passwordHash.hashPassword(pw.getText());
+            
             if(dbc.insertData("INSERT INTO ttb (u_Fname, u_Lname, u_Email, u_Username, u_Password, u_type, u_status)"
                     +" VALUES ('"+uid.getText()+"', '"+ln.getText()+"', '"+em.getText()+"', '"+us.getText()+"', '"
-                    +pw.getText()+"', '"+ut.getSelectedItem()+"', '"+ut1.getSelectedItem()+ "')")){                                        
+                    +pass+"', '"+ut.getSelectedItem()+"', '"+ut1.getSelectedItem()+ "')")){                                        
                 JOptionPane.showMessageDialog(null, "Inserted Successfully!");
                 LoginForm lf = new LoginForm();
                 lf.setVisible(true);
@@ -399,6 +404,10 @@ public class MakeUser extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null, "Connection Error!");
             }
+        }catch(NoSuchAlgorithmException ex){
+                System.out.println(""+ex);
+                
+        }
         }
     }//GEN-LAST:event_add1ActionPerformed
 

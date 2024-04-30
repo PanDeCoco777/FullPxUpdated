@@ -53,8 +53,7 @@ public class ChangePass extends javax.swing.JFrame {
         newpass = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         confirmpass = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -172,29 +171,15 @@ public class ChangePass extends javax.swing.JFrame {
         jLabel11.setForeground(new java.awt.Color(109, 165, 192));
         jLabel11.setText("CONFIRM PASSWORD");
 
-        jLabel14.setBackground(new java.awt.Color(41, 41, 41));
-        jLabel14.setFont(new java.awt.Font("Sitka Small", 3, 10)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(109, 165, 192));
-        jLabel14.setText("Change Password");
-        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+        jLabel7.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel7.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(41, 77, 97));
+        jLabel7.setText("Change Password");
+        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel14MouseClicked(evt);
+                jLabel7MouseClicked(evt);
             }
         });
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel14)
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-        );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -203,7 +188,7 @@ public class ChangePass extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(155, Short.MAX_VALUE)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jLabel11)
                         .addComponent(confirmpass, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -229,8 +214,8 @@ public class ChangePass extends javax.swing.JFrame {
                 .addGap(7, 7, 7)
                 .addComponent(confirmpass, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addComponent(jLabel7)
+                .addContainerGap(196, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel4);
@@ -267,37 +252,40 @@ public class ChangePass extends javax.swing.JFrame {
        
     }//GEN-LAST:event_formWindowActivated
 
-    private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-        try{
+    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+ try{
             dcConnector dcc = new dcConnector();
             session sess = session.getInstance();
           
-            String query = "SELECT * FROM tbb WHERE u_id = '"+sess.getId()+"'";
+            String query = "SELECT * FROM ttb WHERE u_id = '"+sess.getId()+"' ";
             ResultSet rs = dcc.getData(query);
             
+       
                 if(rs.next()){
                     String olddpass = rs.getString("u_Password");
                     String oldhash = passwordHash.hashPassword(oldpass.getText());
+             
                 if(olddpass.equals(oldhash)){
                     String npass = passwordHash.hashPassword(newpass.getText());
-                    dcc.updateData("UPDATE tbb SET u_Password = '"+npass+"'");
+                    dcc.updateData("UPDATE ttb SET u_Password = '"+npass+"' WHERE u_id = '"+sess.getId()+"'");
+                    
+                    
+                if(olddpass.equals(oldhash)){
+                    
+                    String cpass = passwordHash.hashPassword(confirmpass.getText());
+                    dcc.updateData("UPDATE ttb SET u_Password = "+cpass+"'WHERE u_id = '"+sess.getId()+"'");
                     JOptionPane.showMessageDialog(null, "Successfully Updated!");
-                    
-                    LoginForm lg = new LoginForm();
-                    lg.setVisible(true);
-                    this.dispose();
-                    
+                }
                 }else{
                     JOptionPane.showMessageDialog(null, "Old Password Is Incorrect!");
                 }
+                
                 }
         }catch(SQLException | NoSuchAlgorithmException ex){
             System.out.println(""+ex);
+        }
             
-        } 
-        
-        
-    }//GEN-LAST:event_jLabel14MouseClicked
+             }//GEN-LAST:event_jLabel7MouseClicked
 
     
     /**
@@ -358,14 +346,13 @@ public class ChangePass extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JTextField newpass;
     private javax.swing.JTextField oldpass;
     // End of variables declaration//GEN-END:variables
