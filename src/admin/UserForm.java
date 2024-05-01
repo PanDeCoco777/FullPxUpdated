@@ -13,7 +13,9 @@ import config.session;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 
@@ -65,6 +67,8 @@ public class UserForm extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         Edit = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
+        Delet = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -119,7 +123,7 @@ public class UserForm extends javax.swing.JFrame {
         AddLayout.setHorizontalGroup(
             AddLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(AddLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(49, 49, 49)
                 .addComponent(jLabel6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -151,13 +155,46 @@ public class UserForm extends javax.swing.JFrame {
         EditLayout.setHorizontalGroup(
             EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(EditLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(47, 47, 47)
                 .addComponent(jLabel9)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         EditLayout.setVerticalGroup(
             EditLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+
+        Delet.setBackground(new java.awt.Color(7, 46, 51));
+        Delet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DeletMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                DeletMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                DeletMouseExited(evt);
+            }
+        });
+
+        jLabel10.setBackground(new java.awt.Color(204, 204, 204));
+        jLabel10.setFont(new java.awt.Font("Sitka Small", 1, 10)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(109, 165, 192));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("DELET");
+
+        javax.swing.GroupLayout DeletLayout = new javax.swing.GroupLayout(Delet);
+        Delet.setLayout(DeletLayout);
+        DeletLayout.setHorizontalGroup(
+            DeletLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DeletLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel10)
+                .addGap(41, 41, 41))
+        );
+        DeletLayout.setVerticalGroup(
+            DeletLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -179,17 +216,20 @@ public class UserForm extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(AD_id)
                         .addGap(53, 53, 53))))
+            .addComponent(Delet, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addGap(87, 87, 87)
+                .addGap(37, 37, 37)
                 .addComponent(Add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(Edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 153, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Delet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(AD_id)
@@ -277,6 +317,7 @@ public class UserForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
@@ -356,6 +397,39 @@ public class UserForm extends javax.swing.JFrame {
            Edit.setBackground(navcolor);
     }//GEN-LAST:event_EditMouseExited
 
+    private void DeletMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeletMouseClicked
+       
+       
+             
+        
+            DefaultTableModel tbl = (DefaultTableModel) Tb.getModel();
+             
+            if(Tb.getSelectedRowCount() == 1){
+                tbl.removeRow(Tb.getSelectedRow());  
+                  
+            
+            }else{
+                if(Tb.getRowCount() == 0){
+                    JOptionPane.showMessageDialog(null, "Table is Empty");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Please Selet Single Row For Delete");
+
+          }      
+            }
+                
+            
+            
+        
+    }//GEN-LAST:event_DeletMouseClicked
+
+    private void DeletMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeletMouseEntered
+            Delet.setBackground(hovercolor);
+    }//GEN-LAST:event_DeletMouseEntered
+
+    private void DeletMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeletMouseExited
+             Delet.setBackground(navcolor);
+    }//GEN-LAST:event_DeletMouseExited
+
     
     
     /**
@@ -403,9 +477,11 @@ public class UserForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AD_id;
     private javax.swing.JPanel Add;
+    private javax.swing.JPanel Delet;
     private javax.swing.JPanel Edit;
     private javax.swing.JTable Tb;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;

@@ -423,16 +423,24 @@ public class MakeUser extends javax.swing.JFrame {
             System.out.println("Duplicated Exist");
         }else{
             dcConnector dbc =new dcConnector();
+        try{    
+            String pass = passwordHash.hashPassword(pw.getText());
+            
             dbc.updateData("UPDATE ttb SET "
             + "u_Fname = '"+fn.getText()+"', u_Lname = '"+ln.getText()+"', "
                 + "u_Email = '"+em.getText()+"', u_Username ='"+us.getText()+ "', "
-                    + "u_Password = '"+pw.getText()+"', "
+                    + "u_Password = '"+pass+"', "
                         + "u_type = '"+ut.getSelectedItem()+"', "
                             + "u_status = '"+ut1.getSelectedItem()+"' "
                                 + "WHERE u_id='"+Integer.valueOf(uid.getText())+"'");
           UserForm uf = new UserForm();
           uf.setVisible(true);
           this.dispose();
+        
+        } catch(NoSuchAlgorithmException ex){
+                System.out.println(""+ex);
+                
+        }
         }
     }//GEN-LAST:event_UpdateActionPerformed
 
